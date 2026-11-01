@@ -42,7 +42,7 @@ def build_site(output: Path, *, root: Path = ROOT, revision: str = "local") -> d
     rows = "\n".join(
         "<tr><th scope='row'><code>{}</code></th><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(
             escape(item["id"]), escape(item["tier"]), escape(item["version"]),
-            item["operations"], "必要" if item["requires_review"] else "任意"
+            item["operations"], "あり" if item["requires_review"] else "なし"
         ) for item in domains
     )
     page = f"""<!doctype html>
@@ -55,15 +55,15 @@ def build_site(output: Path, *, root: Path = ROOT, revision: str = "local") -> d
 <body>
 <main data-revision="{escape(revision, quote=True)}">
 <h1>Universal Knowledge Lab</h1>
-<p>公開設定から生成した検証用ページです。設定の形式検証は成功しています。実LLMの抽出精度を保証するものではありません。</p>
-<p>対象分野: {len(domains)}件 / ソースリビジョン: <code>{escape(revision)}</code></p>
+<p>登録された分野の設定から生成した公開用一覧です。設定の構造と参照関係の検証は成功しています。実モデルの抽出精度は測定していません。</p>
+<p>登録分野: {len(domains)}分野 / Gitコミット: <code>{escape(revision)}</code></p>
 <table>
-<caption>分野設定の一覧</caption>
-<thead><tr><th scope="col">分野ID</th><th scope="col">区分</th><th scope="col">設定版</th><th scope="col">操作数</th><th scope="col">確認</th></tr></thead>
+<caption>公開している分野の設定値</caption>
+<thead><tr><th scope="col">分野ID</th><th scope="col">優先度</th><th scope="col">設定版</th><th scope="col">操作数</th><th scope="col">レビュー指定</th></tr></thead>
 <tbody>{rows}</tbody>
 </table>
-<p><a href="manifest.json">機械検証用JSON</a> / <a href="https://github.com/KAFKA2306/universal-knowledge">GitHubで正本を確認</a></p>
-<p>ここには原文、LLM出力、個人情報、内部資料を公開しません。</p>
+<p>レビュー指定は設定値です。人が確認したことや承認を終えたことを示しません。</p>
+<p><a href="manifest.json">設定データ（manifest.json）</a> / <a href="https://github.com/KAFKA2306/universal-knowledge">GitHubの設定ファイル</a></p>
 </main>
 </body>
 </html>
