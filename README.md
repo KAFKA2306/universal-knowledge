@@ -66,3 +66,9 @@ python ukl.py --domain manufacturing_process \
 - [Prospector（2026年）](https://arxiv.org/abs/2610.37121)：学習した探索方針で知識グラフをたどり、回答の根拠を収集する研究。
 
 本リポジトリはこれらを参考に設計した**独立した試作**です。論文の方式を再実装したものではなく、論文が報告した精度も本プロジェクトの性能ではありません。
+
+## GitHub Pagesによる公開検証
+
+設定変更のPRでは、分野定義とテストを確認し、公開用HTMLとJSONの整合性を検証します。mainではPagesへ公開後、**実際のURLから再取得してコミットSHAと分野一覧を照合**します。公開ページは設定の形式検証を示すもので、実LLMの抽出精度を証明しません。
+
+初回設定と検証手順は [`docs/PAGES_VALIDATION.md`](docs/PAGES_VALIDATION.md) を参照してください。Pagesが未有効の場合、リポジトリの Settings → Pages → Source で GitHub Actions を選ぶ必要があります。
