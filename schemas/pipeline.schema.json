@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "default_domain", "inference", "limits", "outputs"],
+  "properties": {
+    "schema_version": {"const": "1"},
+    "default_domain": {"type": "string"},
+    "inference": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "base_url", "model", "timeout_seconds"],
+      "properties": {
+        "provider": {"const": "local_openai_compatible"},
+        "base_url": {"type": "string"},
+        "model": {"type": "string", "minLength": 1},
+        "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 600}
+      }
+    },
+    "limits": {"type": "object", "additionalProperties": false, "required": ["max_input_characters"],
+      "properties": {"max_input_characters": {"type": "integer", "minimum": 1, "maximum": 1000000}}},
+    "outputs": {"type": "object", "additionalProperties": false,
+      "required": ["source_quotes_required", "semantic_accuracy_claimed"],
+      "properties": {"source_quotes_required": {"const": true}, "semantic_accuracy_claimed": {"const": false}}}
+  }
+}

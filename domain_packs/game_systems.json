@@ -1,0 +1,19 @@
+{
+  "id": "game_systems",
+  "description": "重量級ボードゲームの戦術、推理ゲームの確定・推定、VRChatゲーム実装と同期検証。",
+  "actions": {
+    "publish_rule": "ゲームのルールを公開する",
+    "take_turn": "プレイヤーが自分の手番を実施する",
+    "place_piece": "ゲーム盤上に駒や要素を配置する",
+    "spend_resource": "ゲーム内の資源を消費する",
+    "bid_resource": "資源や得点を条件として入札する",
+    "vote_player": "参加者が候補について投票する",
+    "reveal_information": "非公開情報をゲーム内で公開する",
+    "update_game_state": "ゲームの管理状態を更新する",
+    "sync_state": "複数クライアント間で状態を同期する",
+    "test_late_join": "途中参加時の状態再現を検証する",
+    "resolve_round": "手番やラウンドの終了処理を行う"
+  },
+  "requires_review": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "scientific_intelligence",
+  "description": "論文・特許・技術公表の原典、手法、再現条件、結果と限界を追跡する。",
+  "actions": {
+    "publish_paper": "論文やプレプリントを公開する",
+    "revise_preprint": "既公開のプレプリントの版を更新する",
+    "propose_method": "新しい手法やアルゴリズムを提案する",
+    "run_experiment": "条件を定めた評価実験を行う",
+    "release_code": "研究に対応する実装を公開する",
+    "release_dataset": "研究に対応するデータセットを公開する",
+    "compare_baseline": "比較手法との性能差を検証する",
+    "replicate_result": "先行研究の結果を再現検証する",
+    "report_limitation": "研究の限界や成立条件を報告する",
+    "cite_research": "先行研究の成果を引用する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

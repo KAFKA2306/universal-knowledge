@@ -1,0 +1,18 @@
+{
+  "id": "semiconductor_capex",
+  "description": "半導体企業の設備投資、工場、受注残、供給能力と顧客関係を一次資料で構造化する。",
+  "actions": {
+    "announce_capex": "設備投資の予算または計画を公表する",
+    "commit_capex": "設備投資の契約または支出を確定する",
+    "build_fab": "製造施設の建設を開始または進める",
+    "expand_capacity": "設備やラインを増強し生産能力を拡大する",
+    "place_equipment_order": "製造設備を発注する",
+    "report_backlog": "受注残高を公表する",
+    "revise_capex": "公表済み設備投資計画を修正する",
+    "qualify_supplier": "供給業者や製品の採用に向けた認定を行う",
+    "start_production": "工場や設備で生産を開始する",
+    "report_utilization": "設備稼働率や能力利用状況を公表する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

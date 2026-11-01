@@ -1,0 +1,19 @@
+{
+  "id": "manufacturing_process",
+  "description": "製造条件・SPC・試作・異常解析・設備保全。人間の判断支援に限定し、原因と相関を区別する。",
+  "actions": {
+    "measure": "対象の数値や品質特性を計測する",
+    "sample_lot": "ロットから検査対象を抽出する",
+    "inspect_defect": "外観や欠陥の状態を検査する",
+    "detect_spc_signal": "管理図などにおける異常信号を検出する",
+    "compare_lots": "複数ロットの条件や結果を比較する",
+    "run_trial": "試作条件を定めて試験を実施する",
+    "adjust_condition": "設備または試作の条件を変更する",
+    "analyze_failure": "不具合について調査し原因候補を検討する",
+    "propose_countermeasure": "工程の対策案を提案する",
+    "verify_countermeasure": "対策実施後の品質結果を検証する",
+    "maintain_equipment": "設備に対する点検や保守を実施する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

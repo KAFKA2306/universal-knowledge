@@ -1,0 +1,17 @@
+{
+  "id": "career_intelligence",
+  "description": "データ基盤・製造×AIの技術リード職を、報酬・勤務条件・顧客対応比率で照合する。",
+  "actions": {
+    "publish_job": "企業が求人情報を公開する",
+    "update_job": "企業が求人要件や条件を変更する",
+    "screen_job": "求人を必須条件に照合する",
+    "exclude_job": "条件に合わない求人を候補から除外する",
+    "compare_roles": "複数職種の責務・条件を比較する",
+    "verify_salary": "公表された報酬レンジの下限を確認する",
+    "verify_remote": "勤務場所やリモート勤務条件を確認する",
+    "apply_job": "求人へ応募する",
+    "schedule_interview": "面接日程を設定する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

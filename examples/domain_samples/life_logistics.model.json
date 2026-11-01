@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "announce_event",
+      "quote": "11月15日に開催すると告知された",
+      "status": "reported",
+      "subject": "架空の体験イベント",
+      "object": null,
+      "parameters": {}
+    }
+  ]
+}

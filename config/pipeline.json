@@ -1,0 +1,17 @@
+{
+  "schema_version": "1",
+  "default_domain": "scientific_intelligence",
+  "inference": {
+    "provider": "local_openai_compatible",
+    "base_url": "http://127.0.0.1:8080",
+    "model": "local",
+    "timeout_seconds": 120
+  },
+  "limits": {
+    "max_input_characters": 100000
+  },
+  "outputs": {
+    "source_quotes_required": true,
+    "semantic_accuracy_claimed": false
+  }
+}

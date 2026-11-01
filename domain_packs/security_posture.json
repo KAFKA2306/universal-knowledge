@@ -1,0 +1,17 @@
+{
+  "id": "security_posture",
+  "description": "アカウント認証、漏えい報告、権限、接続アプリ、インシデント対応。",
+  "actions": {
+    "enable_passkey": "認証手段としてパスキーを有効化する",
+    "enable_mfa": "多要素認証を追加で有効化する",
+    "revoke_session": "ログイン済みセッションを無効化する",
+    "rotate_credential": "認証情報や鍵を更新する",
+    "audit_oauth": "外部連携アプリの権限を点検する",
+    "investigate_incident": "不正アクセスや漏えいの報告を調査する",
+    "classify_exposure": "影響対象を確定・疑い・未確認に分類する",
+    "mitigate_risk": "侵害リスクを減らすための措置を実施する",
+    "verify_notification": "提供元の正式通知を照合する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

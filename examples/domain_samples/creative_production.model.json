@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "revise_storyboard",
+      "quote": "絵コンテを修正した",
+      "status": "performed",
+      "subject": "架空の動画企画",
+      "object": "絵コンテ",
+      "parameters": {}
+    }
+  ]
+}

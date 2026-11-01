@@ -1,0 +1,19 @@
+{
+  "id": "software_factory",
+  "description": "GitHubのIssue・PR・CI・マージ・リリース・運用復旧と権限を構造化する。",
+  "actions": {
+    "open_issue": "作業課題をIssueとして起票する",
+    "create_branch": "開発用ブランチを新規作成する",
+    "implement_change": "コードや設定を変更する",
+    "run_test": "変更や機能に対するテストを実行する",
+    "open_pr": "変更をPull Requestとして提出する",
+    "review_pr": "Pull Requestの変更内容をレビューする",
+    "merge_pr": "承認された変更をターゲットブランチに統合する",
+    "deploy_release": "成果物を対象環境へ公開する",
+    "verify_production": "本番環境の動作を実測して確かめる",
+    "recover_workflow": "失敗した処理やワークフローを復旧する",
+    "close_issue": "課題を完了として閉じる"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

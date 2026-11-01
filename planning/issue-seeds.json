@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Benchmark: manufacturing_process / semiconductor_capex / software_factory",
+    "body": "Create redistributable or synthetic gold datasets for 3 highest-utility workflows. Score operation/status, literal and semantic evidence, numbers and periods, abstention and review workload. Separate public IR from internal manufacturing data; never commit private raw sources."
+  },
+  {
+    "title": "Track provenance of model, prompt and domain pack in every run",
+    "body": "Persist exact model identifier/revision, prompt version, domain pack SHA, runtime config hash and source hash. Add migration behavior for old outputs and tests."
+  },
+  {
+    "title": "Document ingestion adapters with stable citations",
+    "body": "Add TXT/HTML/PDF ingestion interfaces and source/chunk offsets. Keep raw source private. Evaluate OCR separately and avoid losing provenance."
+  },
+  {
+    "title": "Add human review workflow and conflicting-evidence handling",
+    "body": "Support manual accept/correct/reject of extracted semantics; preserve initial prediction and reviewer decision without overwriting evidence."
+  },
+  {
+    "title": "Evaluate graph retrieval before adding learned traversal",
+    "body": "Define cited graph-query baseline and held-out cross-domain questions; distinguish mention edges from verified relationships. Prospector implementation remains outside scope until independently justified."
+  },
+  {
+    "title": "Govern personalized domain registry and schema compatibility",
+    "body": "Keep config/domain_registry.json aligned with domain_packs, enforce boundaries and review guards, check sample coverage. Document old-ID migration and extraction version pins. Changes require an issue, PR and meaningful tests."
+  }
+]

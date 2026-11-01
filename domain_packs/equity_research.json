@@ -1,0 +1,18 @@
+{
+  "id": "equity_research",
+  "description": "決算・財務・企業価値・投資仮説・リスクと判断履歴を分離して記録する。",
+  "actions": {
+    "report_earnings": "会社が業績や財務数値の実績を報告する",
+    "issue_guidance": "会社が将来の業績見通しを示す",
+    "revise_guidance": "会社が既存の業績見通しを改定する",
+    "form_thesis": "投資根拠と仮説を新たに定める",
+    "challenge_thesis": "投資仮説の反証材料を検討する",
+    "estimate_value": "仮定を置いて企業価値や株価指標を推計する",
+    "review_risk": "投資に伴うリスクを確認する",
+    "record_catalyst": "価格形成に関係し得る将来事象を記録する",
+    "announce_issuance": "企業が株式または債券発行を発表する",
+    "rebalance_portfolio": "保有資産の配分を変更する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "creative_production",
+  "description": "画像・動画・記事・音声・プロンプト・制作物の正本、生成、修正、公開を管理する。",
+  "actions": {
+    "draft_script": "動画や記事の構成案を作成する",
+    "revise_storyboard": "動画または画像の構成を修正する",
+    "write_prompt": "生成用のプロンプト定義を作成する",
+    "generate_asset": "設定された条件で素材を生成する",
+    "edit_asset": "画像・動画・音声などの素材を修正する",
+    "register_artifact": "成果物と生成条件を管理対象へ登録する",
+    "render_media": "素材から公開用の画像や動画を出力する",
+    "publish_content": "制作した内容を外部へ公開する",
+    "verify_publication": "公開先で表示や動作を確認する"
+  },
+  "requires_review": false,
+  "version": "2.0.0"
+}

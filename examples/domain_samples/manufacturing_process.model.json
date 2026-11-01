@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "measure",
+      "quote": "膜厚を測定した",
+      "status": "performed",
+      "subject": "架空の試作ロットA",
+      "object": "膜厚",
+      "parameters": {}
+    }
+  ]
+}

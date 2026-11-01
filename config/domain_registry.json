@@ -1,0 +1,343 @@
+{
+  "schema_version": "1",
+  "mission": "個人のプロジェクトに沿って公開可能な根拠を抽出し、分野横断で比較する。抽出だけでは意味的真実を保証しない。",
+  "release_data_policy": "public_config_and_synthetic_examples_only",
+  "routing_policy": "manual_or_configured_default_no_auto_detection",
+  "domains": [
+    {
+      "id": "manufacturing_process",
+      "tier": "core",
+      "goal": "製造工程の実験条件、異常、対策案と結果を根拠付きで再利用する",
+      "routes": [
+        "SPC",
+        "製造ログ",
+        "工程条件",
+        "試作",
+        "品質異常",
+        "ELN"
+      ],
+      "sources": [
+        "許諾済みの工程記録",
+        "SPC統計要約",
+        "技術報告書",
+        "公表済み製造技術文献"
+      ],
+      "public_repos": [],
+      "links": [
+        "scientific_intelligence",
+        "local_ai_agents",
+        "security_posture"
+      ],
+      "guardrails": [
+        "内部製造記録は公開リポジトリに保存しない",
+        "観測された相関を因果と断定しない",
+        "設備への設定変更・自動制御を実行しない"
+      ]
+    },
+    {
+      "id": "semiconductor_capex",
+      "tier": "core",
+      "goal": "設備投資からサプライチェーンへの波及を、発表・計画・実績に分けて追う",
+      "routes": [
+        "半導体",
+        "設備投資",
+        "CapEx",
+        "工場建設",
+        "受注残",
+        "生産能力"
+      ],
+      "sources": [
+        "SEC提出書類",
+        "EDINET提出書類",
+        "企業IR原本",
+        "設備投資に関する公的発表"
+      ],
+      "public_repos": [
+        "KAFKA2306/semiconductor-earnings-model"
+      ],
+      "links": [
+        "equity_research",
+        "scientific_intelligence"
+      ],
+      "guardrails": [
+        "投資計画を確定支出と扱わない",
+        "受注残を売上認識済みと扱わない",
+        "発表日と会計期間を分ける"
+      ]
+    },
+    {
+      "id": "equity_research",
+      "tier": "core",
+      "goal": "根拠を更新しながら銘柄ごとの投資仮説と反証条件を管理する",
+      "routes": [
+        "決算",
+        "EPS",
+        "財務",
+        "投資仮説",
+        "バリュエーション",
+        "ガイダンス"
+      ],
+      "sources": [
+        "SEC・EDINET提出書類",
+        "決算短信・決算説明資料",
+        "企業IR原本",
+        "規制当局の公開統計"
+      ],
+      "public_repos": [],
+      "links": [
+        "semiconductor_capex",
+        "scientific_intelligence",
+        "security_posture"
+      ],
+      "guardrails": [
+        "予想と実績と仮説を混在させない",
+        "株式分割・希薄化・為替換算の前提を記録する",
+        "売買判断を自動で執行しない"
+      ]
+    },
+    {
+      "id": "scientific_intelligence",
+      "tier": "core",
+      "goal": "公開研究を出典付きで比較し、他分野への転用仮説を検証対象として保存する",
+      "routes": [
+        "論文",
+        "DOI",
+        "arXiv",
+        "特許",
+        "先行研究",
+        "学術"
+      ],
+      "sources": [
+        "DOI着地点と出版社原文",
+        "arXiv版番号",
+        "公的特許DB",
+        "公開評価コード・データ"
+      ],
+      "public_repos": [
+        "KAFKA2306/know"
+      ],
+      "links": [
+        "manufacturing_process",
+        "semiconductor_capex",
+        "local_ai_agents"
+      ],
+      "guardrails": [
+        "論文の主張と追試で確認された事実を区別する",
+        "プレプリントと査読済み版の差分を記録する",
+        "実装・再現していない性能を実証済みとしない"
+      ]
+    },
+    {
+      "id": "software_factory",
+      "tier": "core",
+      "goal": "変更を検証可能な証拠とともに追跡し、未完了の作業を明示する",
+      "routes": [
+        "GitHub",
+        "PR",
+        "Issue",
+        "CI",
+        "CD",
+        "デプロイ",
+        "main"
+      ],
+      "sources": [
+        "GitHub APIのIssue・PR・commit・Actions",
+        "公式ドキュメント",
+        "リポジトリ内の設計・テスト"
+      ],
+      "public_repos": [
+        "KAFKA2306/design",
+        "KAFKA2306/prompt-vault"
+      ],
+      "links": [
+        "local_ai_agents",
+        "security_posture",
+        "creative_production"
+      ],
+      "guardrails": [
+        "CI成功と本番稼働確認を同一視しない",
+        "権限拒否の原因を推測だけで決めつけない",
+        "ブランチ保護・承認を迂回しない"
+      ]
+    },
+    {
+      "id": "local_ai_agents",
+      "tier": "core",
+      "goal": "無料OSS中心のローカルAIを再現可能な構成と運用記録で改善する",
+      "routes": [
+        "ローカルLLM",
+        "llama.cpp",
+        "RAG",
+        "GraphRAG",
+        "LLM Agent",
+        "推論サーバー"
+      ],
+      "sources": [
+        "公開OSSリポジトリ・リリース",
+        "匿名化済みベンチマーク",
+        "公開モデルカード",
+        "検証済み設定ファイル"
+      ],
+      "public_repos": [],
+      "links": [
+        "scientific_intelligence",
+        "software_factory",
+        "manufacturing_process"
+      ],
+      "guardrails": [
+        "モデル名・量子化・GPU条件とベンチマークをセットで記録する",
+        "生成回答を検証済み知識と扱わない",
+        "外部有料APIやクラウド基盤を暗黙に前提としない"
+      ]
+    },
+    {
+      "id": "security_posture",
+      "tier": "active",
+      "goal": "公表された事象と個々の影響可能性を区別し、防御手順の実施状況を追う",
+      "routes": [
+        "MFA",
+        "passkey",
+        "OAuth",
+        "漏えい",
+        "セキュリティ",
+        "権限"
+      ],
+      "sources": [
+        "提供事業者の公式通知",
+        "CVE・公的勧告",
+        "GitHub権限設定の公開仕様"
+      ],
+      "public_repos": [],
+      "links": [
+        "software_factory",
+        "local_ai_agents",
+        "equity_research"
+      ],
+      "guardrails": [
+        "公開設定にアカウント識別子・認証情報を含めない",
+        "リスクの可能性を侵害確定と表現しない",
+        "認可を迂回する手順を提案しない"
+      ]
+    },
+    {
+      "id": "career_intelligence",
+      "tier": "active",
+      "goal": "応募条件に合う求人を原文と照合して比較し、未確認情報を明示する",
+      "routes": [
+        "求人",
+        "技術リード",
+        "Staff Engineer",
+        "年収",
+        "フルリモート",
+        "転職"
+      ],
+      "sources": [
+        "企業の公式採用ページ",
+        "公式募集要項",
+        "採用企業による公開情報"
+      ],
+      "public_repos": [],
+      "links": [
+        "manufacturing_process",
+        "software_factory",
+        "local_ai_agents"
+      ],
+      "guardrails": [
+        "正社員・年収下限800万円以上を必須条件とする",
+        "顧客伴走・外部コンサルが主業務の求人と弥生を除外する",
+        "求人票の実績と推測や交渉可能額を区別する"
+      ]
+    },
+    {
+      "id": "game_systems",
+      "tier": "active",
+      "goal": "ルール・公開情報・隠匿情報・状態遷移を混同せずに再現する",
+      "routes": [
+        "ボードゲーム",
+        "VRChat",
+        "UdonSharp",
+        "推理ゲーム",
+        "手番",
+        "ルール"
+      ],
+      "sources": [
+        "公式ルールブック",
+        "合意を得たプレイログの匿名化例",
+        "ゲーム公開仕様",
+        "公開VRChat開発ドキュメント"
+      ],
+      "public_repos": [],
+      "links": [
+        "software_factory",
+        "creative_production"
+      ],
+      "guardrails": [
+        "ネタバレ・秘密役職を無断で公開しない",
+        "推定役職を確定と扱わない",
+        "ゲーム内の同期状態と画面表示を同一視しない"
+      ]
+    },
+    {
+      "id": "life_logistics",
+      "tier": "active",
+      "goal": "開催情報を日時・費用・移動条件とともに確認し、予定と実績を分ける",
+      "routes": [
+        "旅行",
+        "Googleカレンダー",
+        "婚活イベント",
+        "体験イベント",
+        "交通",
+        "予約"
+      ],
+      "sources": [
+        "主催者公式募集ページ",
+        "運行事業者の公式案内",
+        "自治体公式案内",
+        "本人が権限内で取得した予定"
+      ],
+      "public_repos": [],
+      "links": [
+        "security_posture",
+        "creative_production"
+      ],
+      "guardrails": [
+        "個人の予定・住所・同行者は公開リポジトリに記録しない",
+        "イベント開催と予約の確定を混同しない",
+        "体験型・共同作業優先、移動2時間以内・費用約3000円を条件として使う"
+      ]
+    },
+    {
+      "id": "creative_production",
+      "tier": "active",
+      "goal": "元のプロンプトや編集可能な素材と成果物を区別して改善履歴を残す",
+      "routes": [
+        "画像生成",
+        "動画制作",
+        "デザイン",
+        "プロンプト",
+        "YouTube",
+        "BOOTH"
+      ],
+      "sources": [
+        "許諾済み制作素材",
+        "公開済みリポジトリ内の制作定義",
+        "公開クリエイティブ仕様"
+      ],
+      "public_repos": [
+        "KAFKA2306/prompt-vault",
+        "KAFKA2306/design",
+        "KAFKA2306/image2outfit"
+      ],
+      "links": [
+        "software_factory",
+        "game_systems",
+        "life_logistics"
+      ],
+      "guardrails": [
+        "UIトークンはdesignを正本として参照する",
+        "プロンプト定義はprompt-vaultの責務を複製しない",
+        "著作権や出演者の許諾が不明な素材を公開しない"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "propose_method",
+      "quote": "手法Xを提案した",
+      "status": "performed",
+      "subject": "架空の論文C",
+      "object": "手法X",
+      "parameters": {}
+    }
+  ]
+}
