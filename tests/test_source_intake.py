@@ -18,6 +18,19 @@ class IntakeTest(unittest.TestCase):
         self.assertEqual(len(items),1)
         self.assertEqual(items[0]['title'],'New release')
         self.assertNotIn('summary',items[0])
+    def test_invalid_entry_does_not_discard_valid_feed_entries(self):
+        xml=b'''<feed xmlns="http://www.w3.org/2005/Atom">
+          <entry><title>bad URL</title><link rel="alternate" href="http://invalid.example/item"/></entry>
+          <entry><title>valid release</title><link rel="alternate" href="https://github.com/ggml-org/llama.cpp/releases/tag/b101"/></entry>
+        </feed>'''
+        items=collect_feed(self.feed,lambda _:xml)
+        self.assertEqual(len(items),1)
+        self.assertEqual(items[0]['title'],'valid release')
+        c=copy.deepcopy(self.catalog)
+        intake(c,lambda _:xml)
+        self.assertEqual(len(c['candidates']),1)
+        validate(c,self.domains)
+
     def test_idempotence(self):
         c=copy.deepcopy(self.catalog)
         intake(c,lambda _:self.xml)
