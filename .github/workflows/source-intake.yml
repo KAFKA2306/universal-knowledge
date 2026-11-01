@@ -1,0 +1,45 @@
+name: Source intake proposals
+on:
+  schedule:
+    - cron: '15 12 * * 0' # Sunday 21:15 JST
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: source-intake
+  cancel-in-progress: false
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate existing source registry
+        run: python scripts/source_intake.py
+      - name: Fetch primary-source metadata only
+        run: python scripts/source_intake.py --online
+      - name: Verify source contract and existing tests
+        run: |
+          python scripts/source_intake.py
+          python scripts/validate_project.py
+          python -m unittest discover -s tests -v
+      - name: Open review PR only when metadata changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- config/source_registry.json; then
+            echo 'No new candidates'; exit 0
+          fi
+          branch="bot/source-intake-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add config/source_registry.json
+          git commit -m "chore: propose source metadata for human review"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "chore: review newly discovered source URLs" \
+            --body "Automated **unreviewed** candidate URLs and titles only. No source text or abstracts are stored. Check publication date, domain relevance, official URL, and reuse permissions before accepting. No automatic merge."
