@@ -83,7 +83,12 @@ def collect_feed(feed, fetch=None):
     result = []
     for item in root.findall(ATOM+'entry'):
         link = next((x.get('href') for x in item.findall(ATOM+'link') if x.get('rel','alternate') == 'alternate'),None)
-        if not link or https_host(link) != feed['link_host']: continue
+        if not link: continue
+        try:
+            if https_host(link) != feed['link_host']: continue
+        except ValueError:
+            # One malformed entry must not discard valid entries in the same feed.
+            continue
         title = ' '.join((item.findtext(ATOM+'title') or '').split())[:160]
         if not title: continue
         published = item.findtext(ATOM+'published') or item.findtext(ATOM+'updated') or ''
