@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "investigate_incident",
+      "quote": "被害範囲は調査中",
+      "status": "reported",
+      "subject": "架空サービスの運営者",
+      "object": "被害範囲",
+      "parameters": {}
+    }
+  ]
+}

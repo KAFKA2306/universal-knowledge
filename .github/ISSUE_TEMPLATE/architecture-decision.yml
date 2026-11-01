@@ -1,0 +1,21 @@
+name: Architecture decision
+description: Propose a change to shared schema, runtime or graph semantics
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and evidence
+    validations:
+      required: true
+  - type: textarea
+    id: choices
+    attributes:
+      label: Options and trade-offs
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Migration and validation plan
+    validations:
+      required: true

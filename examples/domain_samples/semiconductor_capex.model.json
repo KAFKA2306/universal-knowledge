@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "announce_capex",
+      "quote": "来年度の設備投資計画を公表した",
+      "status": "performed",
+      "subject": "架空の半導体企業A",
+      "object": null,
+      "parameters": {}
+    }
+  ]
+}

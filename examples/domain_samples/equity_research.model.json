@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "report_earnings",
+      "quote": "四半期業績を報告した",
+      "status": "performed",
+      "subject": "架空の企業B",
+      "object": "四半期業績",
+      "parameters": {}
+    }
+  ]
+}

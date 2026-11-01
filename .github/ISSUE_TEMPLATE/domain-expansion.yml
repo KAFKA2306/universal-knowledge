@@ -1,0 +1,29 @@
+name: Domain expansion
+description: Propose a domain-pack change with evidence and evaluation
+labels: ["domain"]
+body:
+  - type: input
+    id: domain
+    attributes:
+      label: Domain ID and proposed version
+      placeholder: manufacturing_process 2.1.0
+    validations:
+      required: true
+  - type: textarea
+    id: operations
+    attributes:
+      label: Canonical actions, registry boundary, source authority and exclusions
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Synthetic examples and primary sources (no private data)
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Evaluation, sensitive-data policy and review requirements
+    validations:
+      required: true

@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "kind": "action",
+      "label": "place_piece",
+      "quote": "市場に駒を配置した",
+      "status": "performed",
+      "subject": "青プレイヤー",
+      "object": "駒",
+      "parameters": {}
+    }
+  ]
+}

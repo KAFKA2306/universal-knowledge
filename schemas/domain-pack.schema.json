@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/KAFKA2306/universal-knowledge-lab-/blob/main/schemas/domain-pack.schema.json",
+  "title": "Universal Knowledge Lab domain pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "description", "actions", "requires_review"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "description": {"type": "string", "minLength": 1},
+    "actions": {"type": "object", "minProperties": 1, "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"}, "additionalProperties": {"type": "string", "minLength": 5}},
+    "requires_review": {"type": "boolean"}
+  }
+}

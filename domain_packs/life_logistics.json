@@ -1,0 +1,18 @@
+{
+  "id": "life_logistics",
+  "description": "関西を起点とした体験型イベント、移動、旅行、予定、行政手続の段取り。",
+  "actions": {
+    "announce_event": "主催者がイベントの開催を告知する",
+    "check_eligibility": "参加資格や年齢条件を確認する",
+    "evaluate_access": "移動経路と移動条件を確認する",
+    "register_event": "イベントへの参加を申し込む",
+    "book_transport": "公共交通や移動手段を予約する",
+    "reserve_venue": "会場や施設の利用枠を予約する",
+    "add_calendar_event": "予定をカレンダーに登録する",
+    "reschedule_plan": "予定日時や行程を変更する",
+    "cancel_registration": "参加申込または予約を取消す",
+    "attend_event": "イベントへ実際に参加する"
+  },
+  "requires_review": false,
+  "version": "2.0.0"
+}

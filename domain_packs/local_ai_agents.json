@@ -1,0 +1,18 @@
+{
+  "id": "local_ai_agents",
+  "description": "ローカルLLM、RAG、知識グラフ、AI Agentの構成・評価・監視・障害復旧。",
+  "actions": {
+    "configure_model": "推論モデルや量子化などの設定を変更する",
+    "serve_model": "ローカル環境でモデル推論サーバーを起動する",
+    "benchmark_inference": "推論速度やメモリ使用量を測定する",
+    "index_documents": "文書を検索用索引に登録する",
+    "retrieve_evidence": "質問に対応する根拠文書を検索する",
+    "traverse_graph": "関係グラフ上のノードや辺を探索する",
+    "evaluate_agent": "エージェントのタスク成功率や失敗を評価する",
+    "monitor_runtime": "稼働状況とエラーログを監視する",
+    "recover_runtime": "失敗した実行環境の復旧を試みる",
+    "promote_model": "評価済みモデルを標準構成へ昇格する"
+  },
+  "requires_review": true,
+  "version": "2.0.0"
+}
