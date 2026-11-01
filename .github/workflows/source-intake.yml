@@ -33,6 +33,20 @@ jobs:
           if git diff --quiet -- config/source_registry.json; then
             echo 'No new candidates'; exit 0
           fi
+          if gh pr list --state open --base main --json headRefName --jq '.[].headRefName' | grep -Eq '^bot/source-intake-[0-9]+
+          branch="bot/source-intake-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add config/source_registry.json
+          git commit -m "chore: propose source metadata for human review"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "chore: review newly discovered source URLs" \
+            --body "Automated **unreviewed** candidate URLs and titles only. No source text or abstracts are stored. Check publication date, domain relevance, official URL, and reuse permissions before accepting. No automatic merge."
+; then
+            echo 'An earlier source intake PR is awaiting review; avoid a duplicate proposal'; exit 0
+          fi
           branch="bot/source-intake-${GITHUB_RUN_ID}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
