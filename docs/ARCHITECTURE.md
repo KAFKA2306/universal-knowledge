@@ -9,7 +9,7 @@
 5. Validation: accept only declared kinds/statuses/actions and exact quoted substrings. Reject malformed content, do not silently repair.
 6. Provenance: source ID, full SHA-256, quote, offsets and count of matches. Same text might recur; flag such ambiguity for review.
 7. Interchange: extraction JSON + graph node/edge JSON. Graph stores mentions, **not** causes, contradiction resolutions or verified identities.
-8. Evaluation: labeled reference data and quality gates are planned. Local tests check registry consistency and manually authored synthetic model responses. GitHub Actions is defined but has not run on the intended new repository; model accuracy is unmeasured.
+8. Verification: GitHub Actions runs configuration checks, synthetic-fixture tests and Pages artifact checks. After deployment, the Pages workflow fetches the public HTML and manifest to verify the commit SHA and domain list. These checks do not measure model extraction accuracy. Labeled reference data and accuracy gates are still planned.
 
 ## Key distinctions
 

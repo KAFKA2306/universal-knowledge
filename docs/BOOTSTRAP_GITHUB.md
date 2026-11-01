@@ -1,24 +1,31 @@
-# GitHub運用
+# GitHubでの更新と検証
 
-**正本リポジトリ:** [KAFKA2306/universal-knowledge-lab-](https://github.com/KAFKA2306/universal-knowledge-lab-)（末尾のハイフンを含む）。
+**正本:** [KAFKA2306/universal-knowledge](https://github.com/KAFKA2306/universal-knowledge)（公開リポジトリ）。設計と設定はGitHubの`main`で管理し、[GitHub Pages](https://kafka2306.github.io/universal-knowledge/)に公開用の設定一覧を生成します。
 
-このリポジトリは2026-11-01にGitHub上で確認した。公開範囲はPublic。初回確認時にはファイルがなく、v0.3.2の内容はまだ反映されていなかった。
+## 変更を反映する手順
 
-## 更新手順
+1. `main`を取得し、変更する設定・コード・文書の最新版を確認する。
+2. 作業ブランチで変更し、必要なら架空例とテストを更新する。機密情報は含めない。
+3. 次のコマンドを実行し、失敗を解消する。
 
-1. `main` と手元の変更を比較する。
-2. 仕様・設定・実装・架空の検証データを同じ変更で更新する。機密情報は含めない。
-3. `python scripts/validate_project.py` と `python -m unittest discover -s tests -v` を実行する。
-4. PRに目的、変更対象、互換性、未検証事項を書く。CIの結果を確認する。
-5. 保護ルールを満たしたPRを`main`へマージし、不要な作業ブランチを削除する。
+   ```bash
+   python scripts/validate_project.py
+   python -m unittest discover -s tests -v
+   GITHUB_SHA=local python scripts/build_pages.py --output _site
+   python scripts/verify_pages.py --local _site --revision local
+   ```
 
-## GitHub設定の確認
+4. PRに変更理由、設定の互換性、確認した結果と未検証事項を書く。GitHub Actionsの結果を確認する。
+5. リポジトリの保護ルールと必要な承認を満たした後に`main`へ統合する。不要な作業ブランチは削除する。
+6. Pagesを変更した場合は、[公開URL](https://kafka2306.github.io/universal-knowledge/)とActionsの公開後検証結果を確認する。
 
-- `main` に対するPRとCIの必須チェック（GitHubで実際に有効か確認する）。
-- force pushの禁止、マージ後のブランチ自動削除。
-- シークレットスキャンとpush protection（利用可能な場合）。
-- Actionsの最小権限。CIは `contents: read` のみを要求する。
+## GitHub側で確認する設定
 
-CI定義が存在するだけでは保護機能を有効化できない。保護ルールはGitHub側で別途確認・設定する。
+- `main`のブランチ保護、必須チェック、force pushの制限。
+- マージ後のブランチ自動削除。
+- secret scanningとpush protection（利用可能な場合）。
+- Actionsの権限。通常のCIは`contents: read`、Pages公開ジョブだけが`pages: write`と`id-token: write`を要求する。
 
-実装課題の下書きは `planning/issue-seeds.json`、優先順は [`ROADMAP.md`](ROADMAP.md) にある。
+**これらのGitHub設定がすべて有効かは未確認です。** ワークフローファイルがあることと、ブランチ保護が有効なことは別です。
+
+開発課題の下書きは`planning/issue-seeds.json`、優先順は[`ROADMAP.md`](ROADMAP.md)を参照してください。

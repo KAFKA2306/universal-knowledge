@@ -1,20 +1,17 @@
-# GitHub Pagesでの公開検証
+# GitHub Pagesで確認できること
 
-このリポジトリはGitHub Pagesを公開成果物の検証対象にします。正式な設定の正本は`config/`と`domain_packs/`です。Pagesは生成物で、直接編集しません。
+[公開ページ](https://kafka2306.github.io/universal-knowledge/)は、`config/`と`domain_packs/`から生成した設定一覧です。正本はGitHubのソースであり、PagesのHTMLとJSONは直接編集しません。
 
-## PRとmainの違い
+## PRとmainで実行する検証
 
-- PR: 設定検証、架空データのテスト、ページ生成、生成したHTML/JSONとコミットSHAの一致を検証します。公開しません。
-- main: 同じ検証を通過した場合だけGitHub Pagesへ公開し、実際の公開URLからHTMLと`manifest.json`を取得します。GitHub ActionsのコミットSHAが一致しなければ失敗します。
-- 公開ページには11分野のID、区分、設定版、操作数、レビュー要否だけを掲載します。個人の予定、抽出した原文、内部資料、モデル出力、情報源のヒントは公開しません。
+- **PR:** 分野設定の構造と参照関係、架空例による動作テスト、生成したHTMLと`manifest.json`のコミットSHA・分野一覧を確認する。PRでは公開しない。
+- **main:** 同じ検証を通過した後、Pagesへ公開する。公開URLからHTMLとJSONを再取得し、公開時のコミットSHAと分野一覧が一致するか確認する。
 
-## 初回セットアップ
+公開ページには、分野ID、優先度、設定版、操作数、レビュー指定の有無だけを表示します。引用原文、モデル出力、個人の予定、内部資料、情報源のヒントは出力しません。
 
-リポジトリの **Settings → Pages → Build and deployment → Source** で **GitHub Actions** を選択してください。GitHub連携から設定変更できない場合は、管理者がこの操作を行います。未設定ではmainでの公開ジョブが失敗する可能性があります。
+**検証の範囲:** 設定の構造、生成物の整合性、公開後のリビジョン一致です。JSON Schemaの完全適合、実モデルの抽出精度、抽出内容の意味や実運用の安全性は測定していません。レビュー指定は設定項目であり、人間の承認が完了したことを示しません。
 
-GitHubの公式手順: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-
-## ローカル検証
+## 手元で確認する
 
 ```bash
 python scripts/validate_project.py
@@ -23,6 +20,6 @@ GITHUB_SHA=local python scripts/build_pages.py --output _site
 python scripts/verify_pages.py --local _site --revision local
 ```
 
-公開URLの確認は、デプロイ完了後にワークフローの`Verify live HTML and manifest for exact commit`を確認します。GitHub Actionsの緑色チェックだけでは、公開URLの更新を証明できません。公開結果の検証まで成功してはじめて完了とします。
+公開結果は[GitHub Actions](https://github.com/KAFKA2306/universal-knowledge/actions/workflows/pages.yml)の`Verify live HTML and manifest for exact commit`で確認します。この処理が失敗した場合は、公開先URL、SHA、`manifest.json`の分野一覧を調べます。ローカル検証が成功しても、公開後の検証が終わるまで公開完了とは判定しません。
 
-公開ページは設定形式の整合性を示すだけです。実モデルの抽出精度、引用内容の意味的正しさ、セキュリティの安全性は保証しません。
+Pagesを初めて有効にする場合は、GitHubの**Settings → Pages → Build and deployment → Source**で**GitHub Actions**を選びます。[公式手順](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
