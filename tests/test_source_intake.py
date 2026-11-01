@@ -27,12 +27,14 @@ class IntakeTest(unittest.TestCase):
         self.assertEqual(len(items),1)
         self.assertEqual(items[0]['title'],'valid release')
         c=copy.deepcopy(self.catalog)
+        c['candidates'] = []  # Isolate this parser regression from online intake state.
         intake(c,lambda _:xml)
         self.assertEqual(len(c['candidates']),1)
         validate(c,self.domains)
 
     def test_idempotence(self):
         c=copy.deepcopy(self.catalog)
+        c['candidates'] = []  # Existing live proposals must not affect idempotence.
         intake(c,lambda _:self.xml)
         self.assertEqual(len(c['candidates']),1)
         intake(c,lambda _:self.xml)
