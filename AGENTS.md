@@ -13,3 +13,5 @@
 - For web UI, consume authoritative `KAFKA2306/design`; do not copy tokens. `KAFKA2306/prompt-vault` manages shared prompts, if/when adopted; this repository owns its extraction schema and domain semantics.
 
 - For Japanese-facing documents, apply `docs/WRITING_GUIDE.md` and the linked editorial rules. Preserve facts, scopes, conditions, negation, and identifiers; avoid automatic word-count or sentence-length scoring.
+
+- Pages is a derived public validation surface. Run `python scripts/build_pages.py --output _site` and `python scripts/verify_pages.py --local _site --revision local` locally with `GITHUB_SHA=local`; the main workflow verifies the actual public deployment against its exact SHA. Do not publish source documents, model outputs or internal inputs.
