@@ -71,3 +71,11 @@ PRでは設定とテストを確認し、公開用HTMLとJSONを照合します�
 
 - [公開設定一覧（GitHub Pages）](https://kafka2306.github.io/universal-knowledge/)
 - [検証内容と失敗時の確認方法](docs/PAGES_VALIDATION.md)
+
+## 一次資料の収集
+
+11分野の公式情報源12件を [`config/source_registry.json`](config/source_registry.json) に登録しました。**情報源の所在を確認した**段階であり、各ページの主張や、データ利用条件を検証したという意味ではありません。
+
+[`scripts/source_intake.py`](scripts/source_intake.py) はURL・分野ID・重複を検査します。週次の [Source intake proposals](.github/workflows/source-intake.yml) は、現在llama.cppのAtomフィードから公開タイトル・URL・日付のみ取得し、差分がある場合に未審査候補のPRを作成します。自動マージは行いません。全文や個人情報は収集しません。
+
+対象、審査方法、運用上の制約は [`docs/SOURCE_COLLECTION.md`](docs/SOURCE_COLLECTION.md) に記載しています。**11分野すべての自動収集が実装されたわけではありません。**

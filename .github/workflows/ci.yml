@@ -15,5 +15,7 @@ jobs:
           python-version: '3.11'
       - name: Validate packs and pipeline settings
         run: python scripts/validate_project.py
+      - name: Validate public source catalog
+        run: python scripts/source_intake.py
       - name: Unit and integration fixture tests
         run: python -m unittest discover -s tests -v
