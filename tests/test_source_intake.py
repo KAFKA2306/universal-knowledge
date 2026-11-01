@@ -37,4 +37,23 @@ class IntakeTest(unittest.TestCase):
         def fail(_): raise OSError('offline')
         with self.assertRaises(RuntimeError): intake(copy.deepcopy(self.catalog),fail)
 
+
+    def test_workflow_shell_syntax(self):
+        import shutil
+        import subprocess
+        if shutil.which('bash') is None:
+            self.skipTest('bash is unavailable')
+        lines = (ROOT / '.github/workflows/source-intake.yml').read_text(encoding='utf-8').splitlines()
+        section = next(i for i, line in enumerate(lines) if line.strip() == '- name: Open review PR only when metadata changed')
+        run = next(i for i in range(section + 1, len(lines)) if lines[i] == '        run: |')
+        body = []
+        for line in lines[run + 1:]:
+            if line and not line.startswith('          '):
+                break
+            body.append(line[10:] if line else '')
+        script = '\n'.join(body) + '\n'
+        self.assertEqual(script.count('git switch -c "$branch"'), 1)
+        result = subprocess.run(['bash', '-n'], input=script, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
 if __name__=='__main__': unittest.main()
