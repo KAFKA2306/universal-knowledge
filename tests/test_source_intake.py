@@ -12,7 +12,11 @@ class IntakeTest(unittest.TestCase):
         self.feed=self.catalog['feeds'][0]
         self.xml=b'''<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>   New    release </title><link href="https://github.com/ggml-org/llama.cpp/releases/tag/b100" rel="alternate"/><updated>2026-11-01T00:00:00Z</updated><summary>not collected</summary></entry><entry><title>bad host</title><link rel="alternate" href="https://bad.example/release"/></entry></feed>'''
     def test_catalog(self):
-        self.assertEqual(len(validate(self.catalog,self.domains)['sources']),12)
+        validated = validate(self.catalog, self.domains)
+        self.assertGreaterEqual(len(validated['sources']), 18)
+        self.assertEqual({x['domain'] for x in validated['sources']}, self.domains)
+        self.assertGreaterEqual(len(validated['feeds']), 4)
+        self.assertTrue(any(x['id']=='uv_release_feed' for x in validated['feeds']))
     def test_filter_and_no_body(self):
         items=collect_feed(self.feed,lambda _:self.xml)
         self.assertEqual(len(items),1)
@@ -31,6 +35,23 @@ class IntakeTest(unittest.TestCase):
         intake(c,lambda _:xml)
         self.assertEqual(len(c['candidates']),1)
         validate(c,self.domains)
+
+    def test_reject_other_repository_on_same_host(self):
+        xml = b'''<feed xmlns="http://www.w3.org/2005/Atom">
+          <entry><title>wrong repo</title><link href="https://github.com/attacker/repo/releases/tag/fake"/></entry>
+          <entry><title>correct repo</title><link href="https://github.com/ggml-org/llama.cpp/releases/tag/b102"/></entry>
+        </feed>'''
+        items = collect_feed(self.feed, lambda _: xml)
+        self.assertEqual(len(items), 1)
+        self.assertIn('ggml-org/llama.cpp', items[0]['url'])
+
+    def test_candidate_domain_must_match_feed(self):
+        c = copy.deepcopy(self.catalog)
+        c['candidates'][0]['domain'] = 'unregistered'
+        with self.assertRaises(ValueError): validate(c,self.domains)
+        c = copy.deepcopy(self.catalog)
+        c['candidates'][0]['domain'] = 'equity_research'
+        with self.assertRaises(ValueError): validate(c,self.domains)
 
     def test_idempotence(self):
         c=copy.deepcopy(self.catalog)
