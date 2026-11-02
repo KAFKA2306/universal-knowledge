@@ -65,12 +65,14 @@ python ukl.py --domain manufacturing_process \
 
 本リポジトリはこれらを参考に設計した**独立した試作**です。論文の方式を再実装したものではなく、論文が報告した精度も本プロジェクトの性能ではありません。
 
-## GitHub Pagesによる公開検証
+## GitHub Pages：公開資料デスク
 
-PRでは設定とテストを確認し、公開用HTMLとJSONを照合します。mainへ統合した後はPagesへ公開し、公開URLから再取得した内容のコミットSHAと分野一覧を確認します。この検証の対象は設定と公開成果物です。実モデルによる抽出の正しさは測定していません。
+[公開資料デスク](https://kafka2306.github.io/universal-knowledge/)では、11分野の登録済み情報源と未審査リリース候補を、キーワード・分野・審査状態・公開日で探せます。旧来の「分野設定一覧」ページは廃止しました。資料のURLを確認したことと、記載内容が正しいことは別です。
 
-- [公開設定一覧（GitHub Pages）](https://kafka2306.github.io/universal-knowledge/)
-- [検証内容と失敗時の確認方法](docs/PAGES_VALIDATION.md)
+GitHub Pagesは`config/source_registry.json`と`config/domain_registry.json`から生成します。PRとmainのGitHub Actionsでは、資料一覧・件数・コミットSHAに加え、公開されたCSSとJavaScriptのハッシュも検証します。モデルによる抽出精度は評価していません。
+
+- [公開資料デスク](https://kafka2306.github.io/universal-knowledge/)
+- [公開画面の仕様と検証手順](docs/PAGES_VALIDATION.md)
 
 ## 一次資料の収集
 
