@@ -11,10 +11,11 @@ import re
 import time
 from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
-
-from scripts.build_pages import published_records
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from scripts.build_pages import published_records
 
 
 def verify(html: str, raw_manifest: str, revision: str) -> int:
