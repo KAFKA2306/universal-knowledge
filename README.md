@@ -74,8 +74,10 @@ PRでは設定とテストを確認し、公開用HTMLとJSONを照合します�
 
 ## 一次資料の収集
 
-11分野の公式情報源12件を [`config/source_registry.json`](config/source_registry.json) に登録しました。**情報源の所在を確認した**段階であり、各ページの主張や、データ利用条件を検証したという意味ではありません。
+11分野に対応する公開情報源18件を [`config/source_registry.json`](config/source_registry.json) に登録しました。**情報源の所在を確認した**段階であり、各ページの主張や、データ利用条件を検証したという意味ではありません。
 
-[`scripts/source_intake.py`](scripts/source_intake.py) はURL・分野ID・重複を検査します。週次の [Source intake proposals](.github/workflows/source-intake.yml) は、現在llama.cppのAtomフィードから公開タイトル・URL・日付のみ取得し、差分がある場合に未審査候補のPRを作成します。自動マージは行いません。全文や個人情報は収集しません。
+[`scripts/source_intake.py`](scripts/source_intake.py) はURL・分野ID・重複を検査します。週次の [Source intake proposals](.github/workflows/source-intake.yml) は、現在llama.cpp・uv・FastAPI・VRChat Creator Companionの4つのAtomフィードからタイトル・URL・日付のみ取得し、差分がある場合に未審査候補のPRを作成します。自動マージは行いません。全文や個人情報は収集しません。
 
 対象、審査方法、運用上の制約は [`docs/SOURCE_COLLECTION.md`](docs/SOURCE_COLLECTION.md) に記載しています。**11分野すべての自動収集が実装されたわけではありません。**
+
+2026年11月2日には、公式リリース5件を未審査候補として登録しました。収集した個別資料と確認範囲は [`docs/COLLECTION_LOG_20261102.md`](docs/COLLECTION_LOG_20261102.md) に記載しています。CI・Pagesでは収集設定とURLの制約も検証しますが、記事内容の正しさやモデル精度は評価しません。
