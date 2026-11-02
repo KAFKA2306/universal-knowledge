@@ -2,21 +2,230 @@
   "schema_version": 1,
   "publication_policy": "public_links_and_metadata_only",
   "sources": [
-    {"id": "nist_engineering", "domain": "manufacturing_process", "title": "NIST Engineering Laboratory", "url": "https://www.nist.gov/el", "type": "official_portal", "review": "source_verified"},
-    {"id": "edinet_api", "domain": "semiconductor_capex", "title": "EDINET API公式資料", "url": "https://disclosure2dl.edinet-fsa.go.jp/guide/static/disclosure/WZEK0110.html", "type": "official_portal", "review": "source_verified"},
-    {"id": "sec_filings", "domain": "equity_research", "title": "SEC EDGAR Search Filings", "url": "https://www.sec.gov/search-filings", "type": "official_portal", "review": "source_verified"},
-    {"id": "paper_costa", "domain": "scientific_intelligence", "title": "LLM-based extraction of preparation procedures", "url": "https://doi.org/10.1038/s41467-026-78605-7", "type": "paper", "review": "source_verified"},
-    {"id": "paper_prospector", "domain": "scientific_intelligence", "title": "Prospector: learning a compact graph traversal policy for scientific reasoning", "url": "https://arxiv.org/abs/2610.37121", "type": "preprint", "review": "source_verified"},
-    {"id": "design_repo", "domain": "software_factory", "title": "KAFKA2306 design source of truth", "url": "https://github.com/KAFKA2306/design", "type": "repository", "review": "source_verified"},
-    {"id": "llamacpp_releases", "domain": "local_ai_agents", "title": "llama.cpp Releases", "url": "https://github.com/ggml-org/llama.cpp/releases", "type": "official_releases", "review": "source_verified"},
-    {"id": "nist_nvd", "domain": "security_posture", "title": "NIST National Vulnerability Database", "url": "https://www.nist.gov/itl/nvd", "type": "official_portal", "review": "source_verified"},
-    {"id": "monotaro_careers", "domain": "career_intelligence", "title": "MonotaRO 中途採用", "url": "https://recruit.monotaro.com/career/", "type": "official_careers", "review": "source_verified"},
-    {"id": "vrchat_creator_docs", "domain": "game_systems", "title": "VRChat Creator Documentation", "url": "https://creators.vrchat.com/", "type": "official_docs", "review": "source_verified"},
-    {"id": "osaka_monorail", "domain": "life_logistics", "title": "大阪モノレール 時刻表・駅案内", "url": "https://www.osaka-monorail.co.jp/station/", "type": "official_portal", "review": "source_verified"},
-    {"id": "blender_manual", "domain": "creative_production", "title": "Blender Manual", "url": "https://docs.blender.org/manual/en/latest/", "type": "official_docs", "review": "source_verified"}
+    {
+      "id": "nist_engineering",
+      "domain": "manufacturing_process",
+      "title": "NIST Engineering Laboratory",
+      "url": "https://www.nist.gov/el",
+      "type": "official_portal",
+      "review": "source_verified"
+    },
+    {
+      "id": "edinet_api",
+      "domain": "semiconductor_capex",
+      "title": "EDINET API公式資料",
+      "url": "https://disclosure2dl.edinet-fsa.go.jp/guide/static/disclosure/WZEK0110.html",
+      "type": "official_portal",
+      "review": "source_verified"
+    },
+    {
+      "id": "sec_filings",
+      "domain": "equity_research",
+      "title": "SEC EDGAR Search Filings",
+      "url": "https://www.sec.gov/search-filings",
+      "type": "official_portal",
+      "review": "source_verified"
+    },
+    {
+      "id": "paper_costa",
+      "domain": "scientific_intelligence",
+      "title": "LLM-based extraction of preparation procedures",
+      "url": "https://doi.org/10.1038/s41467-026-78605-7",
+      "type": "paper",
+      "review": "source_verified"
+    },
+    {
+      "id": "paper_prospector",
+      "domain": "scientific_intelligence",
+      "title": "Prospector: learning a compact graph traversal policy for scientific reasoning",
+      "url": "https://arxiv.org/abs/2610.37121",
+      "type": "preprint",
+      "review": "source_verified"
+    },
+    {
+      "id": "design_repo",
+      "domain": "software_factory",
+      "title": "KAFKA2306 design source of truth",
+      "url": "https://github.com/KAFKA2306/design",
+      "type": "repository",
+      "review": "source_verified"
+    },
+    {
+      "id": "llamacpp_releases",
+      "domain": "local_ai_agents",
+      "title": "llama.cpp Releases",
+      "url": "https://github.com/ggml-org/llama.cpp/releases",
+      "type": "official_releases",
+      "review": "source_verified"
+    },
+    {
+      "id": "nist_nvd",
+      "domain": "security_posture",
+      "title": "NIST National Vulnerability Database",
+      "url": "https://www.nist.gov/itl/nvd",
+      "type": "official_portal",
+      "review": "source_verified"
+    },
+    {
+      "id": "monotaro_careers",
+      "domain": "career_intelligence",
+      "title": "MonotaRO 中途採用",
+      "url": "https://recruit.monotaro.com/career/",
+      "type": "official_careers",
+      "review": "source_verified"
+    },
+    {
+      "id": "vrchat_creator_docs",
+      "domain": "game_systems",
+      "title": "VRChat Creator Documentation",
+      "url": "https://creators.vrchat.com/",
+      "type": "official_docs",
+      "review": "source_verified"
+    },
+    {
+      "id": "osaka_monorail",
+      "domain": "life_logistics",
+      "title": "大阪モノレール 時刻表・駅案内",
+      "url": "https://www.osaka-monorail.co.jp/station/",
+      "type": "official_portal",
+      "review": "source_verified"
+    },
+    {
+      "id": "blender_manual",
+      "domain": "creative_production",
+      "title": "Blender Manual",
+      "url": "https://docs.blender.org/manual/en/latest/",
+      "type": "official_docs",
+      "review": "source_verified"
+    },
+    {
+      "id": "tsmc_3q26_ir",
+      "domain": "semiconductor_capex",
+      "title": "TSMC 2026 Q3 quarterly results",
+      "url": "https://investor.tsmc.com/english/quarterly-results/2026/q3",
+      "type": "official_financial_results",
+      "review": "source_verified"
+    },
+    {
+      "id": "tsmc_3q26_release",
+      "domain": "semiconductor_capex",
+      "title": "TSMC Reports Third Quarter EPS of NT$29.43 (2026-10-15)",
+      "url": "https://pr.tsmc.com/english/news/3346",
+      "type": "official_press_release",
+      "review": "source_verified"
+    },
+    {
+      "id": "tsmc_3q26_sec",
+      "domain": "equity_research",
+      "title": "TSMC 2026 Q3 earnings filing at SEC",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000726/a3q26e_withguidancexfinal.htm",
+      "type": "regulatory_filing",
+      "review": "source_verified"
+    },
+    {
+      "id": "uv_releases",
+      "domain": "software_factory",
+      "title": "Astral uv official releases",
+      "url": "https://github.com/astral-sh/uv/releases",
+      "type": "official_releases",
+      "review": "source_verified"
+    },
+    {
+      "id": "fastapi_releases",
+      "domain": "software_factory",
+      "title": "FastAPI official releases",
+      "url": "https://github.com/fastapi/fastapi/releases",
+      "type": "official_releases",
+      "review": "source_verified"
+    },
+    {
+      "id": "vcc_releases",
+      "domain": "game_systems",
+      "title": "VRChat Creator Companion official repository releases",
+      "url": "https://github.com/vrchat-community/creator-companion/releases",
+      "type": "official_releases",
+      "review": "source_verified"
+    }
   ],
   "feeds": [
-    {"id": "llamacpp_release_feed", "domain": "local_ai_agents", "url": "https://github.com/ggml-org/llama.cpp/releases.atom", "allowed_host": "github.com", "link_host": "github.com", "limit": 5}
+    {
+      "id": "llamacpp_release_feed",
+      "domain": "local_ai_agents",
+      "url": "https://github.com/ggml-org/llama.cpp/releases.atom",
+      "allowed_host": "github.com",
+      "link_host": "github.com",
+      "limit": 5
+    },
+    {
+      "id": "uv_release_feed",
+      "domain": "software_factory",
+      "url": "https://github.com/astral-sh/uv/releases.atom",
+      "allowed_host": "github.com",
+      "link_host": "github.com",
+      "limit": 5
+    },
+    {
+      "id": "fastapi_release_feed",
+      "domain": "software_factory",
+      "url": "https://github.com/fastapi/fastapi/releases.atom",
+      "allowed_host": "github.com",
+      "link_host": "github.com",
+      "limit": 5
+    },
+    {
+      "id": "vcc_release_feed",
+      "domain": "game_systems",
+      "url": "https://github.com/vrchat-community/creator-companion/releases.atom",
+      "allowed_host": "github.com",
+      "link_host": "github.com",
+      "limit": 5
+    }
   ],
-  "candidates": []
+  "candidates": [
+    {
+      "id": "30bf39f3815280e4",
+      "domain": "game_systems",
+      "feed_id": "vcc_release_feed",
+      "title": "Creator Companion 2.5.0 Beta 2 (pre-release)",
+      "url": "https://github.com/vrchat-community/creator-companion/releases/tag/2.5.0-beta.2",
+      "published": "2026-06-25T19:55:44Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "ead7839c97ed82a0",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "llama.cpp b12032 (pre-release)",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12032",
+      "published": "2026-11-01T09:00:59Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "c525f99f59bd242f",
+      "domain": "software_factory",
+      "feed_id": "fastapi_release_feed",
+      "title": "FastAPI 0.162.0",
+      "url": "https://github.com/fastapi/fastapi/releases/tag/0.162.0",
+      "published": "2026-10-23T18:47:17Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "57e8e458e1effa89",
+      "domain": "software_factory",
+      "feed_id": "uv_release_feed",
+      "title": "uv 0.13.5",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.5",
+      "published": "2026-10-22T01:35:00Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "f94a466056ac7c54",
+      "domain": "software_factory",
+      "feed_id": "uv_release_feed",
+      "title": "uv 0.13.6",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.6",
+      "published": "2026-10-27T00:47:49Z",
+      "review": "unreviewed"
+    }
+  ]
 }
