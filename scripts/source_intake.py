@@ -24,6 +24,15 @@ def https_host(url):
     return p.hostname.lower()
 
 
+def allowed_release_link(feed, url):
+    """Reject links to unrelated GitHub repositories even on the same host."""
+    if https_host(url) != feed['link_host']:
+        return False
+    if feed['allowed_host'] == 'github.com' and feed['url'].endswith('/releases.atom'):
+        return url.startswith(feed['url'][:-len('.atom')] + '/tag/')
+    return True
+
+
 def validate(catalog, domain_ids):
     if set(catalog) != {'schema_version','publication_policy','sources','feeds','candidates'}:
         raise ValueError('Unexpected source registry layout')
@@ -59,8 +68,8 @@ def validate(catalog, domain_ids):
             raise ValueError('Unknown candidate domain or feed')
         if not entry['title'] or len(entry['title']) > 160: raise ValueError('Invalid candidate title')
         feed = next(f for f in catalog['feeds'] if f['id'] == entry['feed_id'])
-        if https_host(entry['url']) != feed['link_host']:
-            raise ValueError('Candidate URL host is not allowed')
+        if entry['domain'] != feed['domain'] or not allowed_release_link(feed, entry['url']):
+            raise ValueError('Candidate domain or release repository is not allowed')
         if entry['id'] != hashlib.sha256(entry['url'].encode('utf-8')).hexdigest()[:16]:
             raise ValueError('Candidate ID mismatch')
         if entry['id'] in ids or entry['url'] in urls: raise ValueError('Duplicate candidate')
@@ -85,7 +94,7 @@ def collect_feed(feed, fetch=None):
         link = next((x.get('href') for x in item.findall(ATOM+'link') if x.get('rel','alternate') == 'alternate'),None)
         if not link: continue
         try:
-            if https_host(link) != feed['link_host']: continue
+            if not allowed_release_link(feed, link): continue
         except ValueError:
             # One malformed entry must not discard valid entries in the same feed.
             continue
