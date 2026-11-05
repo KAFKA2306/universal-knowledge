@@ -192,6 +192,42 @@
       "review": "unreviewed"
     },
     {
+      "id": "a4cbe3ac092595fd",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12028",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12028",
+      "published": "2026-11-01T06:40:53Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "4523764d8b03449e",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12029",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12029",
+      "published": "2026-11-01T06:57:39Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "f222e592011d6aae",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12030",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12030",
+      "published": "2026-11-01T07:16:14Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "ee089bed34253d92",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12031",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12031",
+      "published": "2026-11-01T07:41:33Z",
+      "review": "unreviewed"
+    },
+    {
       "id": "ead7839c97ed82a0",
       "domain": "local_ai_agents",
       "feed_id": "llamacpp_release_feed",
