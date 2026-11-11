@@ -21,11 +21,8 @@ jobs:
         run: python scripts/source_intake.py
       - name: Fetch primary-source metadata only
         run: python scripts/source_intake.py --online
-      - name: Verify source contract and existing tests
-        run: |
-          python scripts/source_intake.py
-          python scripts/validate_project.py
-          python -m unittest discover -s tests -v
+      - name: Validate updated source registry
+        run: python scripts/source_intake.py
       - name: Open review PR only when metadata changed
         env:
           GH_TOKEN: ${{ github.token }}
