@@ -18,6 +18,13 @@ from typing import Any
 ROOT = pathlib.Path(__file__).resolve().parent
 KINDS = {"action", "observation", "claim", "decision", "rule"}
 STATUSES = {"performed", "planned", "hypothetical", "negated", "reported", "uncertain"}
+PROMPT_VERSION = "1"
+
+
+def stable_hash(value: Any) -> str:
+    """Hash a canonical JSON representation; never serialize private source contents."""
+    payload = json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 CORE_ACTIONS = {
     "read": "Read or inspect a source",
     "record": "Record or document data",
@@ -60,9 +67,11 @@ def load_domain(domain: str) -> dict[str, Any]:
     if not domain.replace('-', '').replace('_', '').isalnum():
         raise ValueError('Invalid domain name')
     path = ROOT / 'domain_packs' / f'{domain}.json'
-    pack = json.loads(path.read_text(encoding='utf-8'))
+    raw = path.read_bytes()
+    pack = json.loads(raw.decode('utf-8'))
     if pack.get('id') != domain or not isinstance(pack.get('actions'), dict):
         raise ValueError('Invalid domain pack')
+    pack['pack_sha256'] = hashlib.sha256(raw).hexdigest()
     pack['all_actions'] = {**CORE_ACTIONS, **pack['actions']}
     return pack
 
@@ -111,10 +120,20 @@ def call_local_llm(messages: list[dict[str, str]], *, model: str, base_url: str,
     return json.loads(content)
 
 
-def normalize(prediction: dict[str, Any], source_text: str, domain: dict[str, Any], source_id: str) -> dict[str, Any]:
+def normalize(prediction: dict[str, Any], source_text: str, domain: dict[str, Any], source_id: str, *, provenance: dict[str, Any] | None = None) -> dict[str, Any]:
     if not isinstance(prediction, dict) or not isinstance(prediction.get('records'), list):
         raise ValueError('Model response must contain records list')
     document_hash = hashlib.sha256(source_text.encode('utf-8')).hexdigest()
+    context = dict(provenance) if provenance is not None else {
+        'schema_version': '1', 'status': 'UNVERIFIED', 'execution_mode': 'library',
+        'model_id': None, 'model_revision': None,
+        'prompt_version': PROMPT_VERSION,
+        'prompt_sha256': stable_hash(build_prompt(source_text, domain)),
+        'domain_pack_sha256': domain.get('pack_sha256'),
+        'runtime_config_sha256': None, 'source_sha256': document_hash,
+    }
+    if context.get('source_sha256') != document_hash:
+        raise ValueError('Provenance source hash does not match input')
     records, rejected = [], []
     for index, raw in enumerate(prediction['records']):
         errors = []
@@ -159,15 +178,32 @@ def normalize(prediction: dict[str, Any], source_text: str, domain: dict[str, An
             'source': {'id': source_id, 'sha256': document_hash, 'quote': quote,
                        'start': start, 'end': start + len(quote), 'matches': count},
             'needs_review': needs_review,
+            'provenance': dict(context),
         })
     return {
         'version': '0.1.0', 'domain': domain['id'], 'domain_pack_version': domain.get('version', '1'),
         'source_id': source_id, 'source_sha256': document_hash,
+        'provenance': context,
         'generated_at': datetime.now(timezone.utc).isoformat(),
         'records': records, 'rejected': rejected,
         'review_required': bool(rejected) or any(r['needs_review'] for r in records),
         'warning': 'Prototype only. Source quotation is mechanically verified; semantic accuracy is NOT guaranteed.',
     }
+
+
+def read_output(path: pathlib.Path) -> dict[str, Any]:
+    """Read old results without fabricating missing model or configuration evidence."""
+    result = json.loads(path.read_text(encoding='utf-8'))
+    if not isinstance(result, dict) or not isinstance(result.get('records'), list):
+        raise ValueError('Invalid extraction result')
+    if 'provenance' not in result:
+        result['provenance'] = {'status': 'LEGACY_UNVERIFIED'}
+    for record in result['records']:
+        if not isinstance(record, dict):
+            raise ValueError('Invalid extraction record')
+        if 'provenance' not in record:
+            record['provenance'] = {'status': 'LEGACY_UNVERIFIED'}
+    return result
 
 
 def to_graph(result: dict[str, Any]) -> dict[str, Any]:
@@ -180,7 +216,8 @@ def to_graph(result: dict[str, Any]) -> dict[str, Any]:
         rec_id = record['id']
         nodes[rec_id] = {'id': rec_id, 'type': 'record', 'label': record['label'],
                          'status': record['status'], 'kind': record['kind'],
-                         'source': record['source'], 'needs_review': record['needs_review']}
+                         'source': record['source'], 'needs_review': record['needs_review'],
+                         'provenance': record.get('provenance', {'status': 'LEGACY_UNVERIFIED'})}
         for field, rel in [('subject', 'HAS_SUBJECT'), ('object', 'HAS_OBJECT')]:
             value = record.get(field)
             if value:
@@ -202,18 +239,42 @@ def main() -> None:
     parser.add_argument('--source-id', help='Stable source identifier (defaults to input filename)')
     parser.add_argument('--fixture', help='Offline test: use saved model response instead of calling a model')
     parser.add_argument('--model', help='Override configured local model')
+    parser.add_argument('--model-revision', help='Verified model revision identifier, if independently known')
     parser.add_argument('--base-url', help='Override configured local inference server')
     args = parser.parse_args()
-    settings = load_settings(pathlib.Path(args.settings))
+    settings_path = pathlib.Path(args.settings)
+    settings = load_settings(settings_path)
     source = pathlib.Path(args.input).read_text(encoding='utf-8')
     if len(source) > settings['limits']['max_input_characters']:
         raise ValueError('Input exceeds configured character limit')
     pack = load_domain(args.domain or settings['default_domain'])
+    messages = build_prompt(source, pack)
+    effective_model = args.model or settings['inference']['model']
+    effective_url = args.base_url or settings['inference']['base_url']
+    revision = args.model_revision if not args.fixture else None
+    context = {
+        'schema_version': '1',
+        'status': 'FIXTURE_NOT_MODEL' if args.fixture else ('DECLARED_NOT_VERIFIED' if revision else 'UNVERIFIED_MODEL_REVISION'),
+        'execution_mode': 'fixture' if args.fixture else 'local_llm',
+        'model_id': None if args.fixture else effective_model,
+        'model_revision': revision,
+        'prompt_version': PROMPT_VERSION,
+        'prompt_sha256': stable_hash(messages),
+        'prompt_executed': not bool(args.fixture),
+        'domain_pack_sha256': pack['pack_sha256'],
+        'domain_pack_version': pack.get('version', '1'),
+        'runtime_config_sha256': stable_hash({
+            'settings_file_sha256': hashlib.sha256(settings_path.read_bytes()).hexdigest(),
+            'model': effective_model, 'base_url': effective_url,
+            'timeout_seconds': settings['inference']['timeout_seconds'],
+        }),
+        'source_sha256': hashlib.sha256(source.encode('utf-8')).hexdigest(),
+    }
     prediction = (json.loads(pathlib.Path(args.fixture).read_text(encoding='utf-8'))
-                  if args.fixture else call_local_llm(build_prompt(source, pack), model=args.model or settings['inference']['model'],
-                                                   base_url=args.base_url or settings['inference']['base_url'],
+                  if args.fixture else call_local_llm(messages, model=effective_model,
+                                                   base_url=effective_url,
                                                    timeout=settings['inference']['timeout_seconds']))
-    normalized = normalize(prediction, source, pack, args.source_id or pathlib.Path(args.input).name)
+    normalized = normalize(prediction, source, pack, args.source_id or pathlib.Path(args.input).name, provenance=context)
     pathlib.Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     pathlib.Path(args.output).write_text(json.dumps(normalized, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     if args.graph_output:
