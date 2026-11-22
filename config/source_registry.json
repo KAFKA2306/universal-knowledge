@@ -183,12 +183,48 @@
   ],
   "candidates": [
     {
+      "id": "83aaa5294beb508c",
+      "domain": "game_systems",
+      "feed_id": "vcc_release_feed",
+      "title": "Creator Companion 2.3.0 Beta 3",
+      "url": "https://github.com/vrchat-community/creator-companion/releases/tag/2.3.0-beta.3",
+      "published": "2024-04-30T16:49:46Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "276fb7da491731aa",
+      "domain": "game_systems",
+      "feed_id": "vcc_release_feed",
+      "title": "Creator Companion 2.4.0 Beta 1",
+      "url": "https://github.com/vrchat-community/creator-companion/releases/tag/2.4.0-beta.1",
+      "published": "2024-10-11T19:21:21Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "c60c70f2728dcccc",
+      "domain": "game_systems",
+      "feed_id": "vcc_release_feed",
+      "title": "Creator Companion 2.5.0 Beta 1",
+      "url": "https://github.com/vrchat-community/creator-companion/releases/tag/2.5.0-beta.1",
+      "published": "2025-06-18T18:49:15Z",
+      "review": "unreviewed"
+    },
+    {
       "id": "30bf39f3815280e4",
       "domain": "game_systems",
       "feed_id": "vcc_release_feed",
       "title": "Creator Companion 2.5.0 Beta 2 (pre-release)",
       "url": "https://github.com/vrchat-community/creator-companion/releases/tag/2.5.0-beta.2",
       "published": "2026-06-25T19:55:44Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "03c5d72204a9f1aa",
+      "domain": "game_systems",
+      "feed_id": "vcc_release_feed",
+      "title": "Creator Companion 2.5.0 Beta 3",
+      "url": "https://github.com/vrchat-community/creator-companion/releases/tag/2.5.0-beta.3",
+      "published": "2026-11-19T20:12:20Z",
       "review": "unreviewed"
     },
     {
@@ -237,12 +273,102 @@
       "review": "unreviewed"
     },
     {
+      "id": "cbaaaef49fc66d7b",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12629",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12629",
+      "published": "2026-11-22T08:47:04Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "c94ddbc22c9bf739",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12631",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12631",
+      "published": "2026-11-22T09:06:37Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "14cfa1d88e05a6ae",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12632",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12632",
+      "published": "2026-11-22T14:41:59Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "ceaa620683d00f64",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12633",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12633",
+      "published": "2026-11-22T14:57:05Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "a70beded45140cf8",
+      "domain": "local_ai_agents",
+      "feed_id": "llamacpp_release_feed",
+      "title": "b12634: chat : trigger lazy grammar on bare JSON tool calls (#32497)",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12634",
+      "published": "2026-11-22T11:19:04Z",
+      "review": "unreviewed"
+    },
+    {
       "id": "c525f99f59bd242f",
       "domain": "software_factory",
       "feed_id": "fastapi_release_feed",
       "title": "FastAPI 0.162.0",
       "url": "https://github.com/fastapi/fastapi/releases/tag/0.162.0",
       "published": "2026-10-23T18:47:17Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "5f373a53175656a7",
+      "domain": "software_factory",
+      "feed_id": "fastapi_release_feed",
+      "title": "0.163.0",
+      "url": "https://github.com/fastapi/fastapi/releases/tag/0.163.0",
+      "published": "2026-11-14T16:53:02Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "5f872959568dab56",
+      "domain": "software_factory",
+      "feed_id": "fastapi_release_feed",
+      "title": "0.163.1",
+      "url": "https://github.com/fastapi/fastapi/releases/tag/0.163.1",
+      "published": "2026-11-15T09:50:02Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "ff30372ac34fcb06",
+      "domain": "software_factory",
+      "feed_id": "fastapi_release_feed",
+      "title": "0.163.2",
+      "url": "https://github.com/fastapi/fastapi/releases/tag/0.163.2",
+      "published": "2026-11-17T18:28:44Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "749f854c75abdf7e",
+      "domain": "software_factory",
+      "feed_id": "fastapi_release_feed",
+      "title": "0.164.0",
+      "url": "https://github.com/fastapi/fastapi/releases/tag/0.164.0",
+      "published": "2026-11-18T13:08:49Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "2be2f0fcbfff4274",
+      "domain": "software_factory",
+      "feed_id": "fastapi_release_feed",
+      "title": "0.165.0",
+      "url": "https://github.com/fastapi/fastapi/releases/tag/0.165.0",
+      "published": "2026-11-18T19:14:20Z",
       "review": "unreviewed"
     },
     {
@@ -261,6 +387,33 @@
       "title": "uv 0.13.6",
       "url": "https://github.com/astral-sh/uv/releases/tag/0.13.6",
       "published": "2026-10-27T00:47:49Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "3a320c625724e6de",
+      "domain": "software_factory",
+      "feed_id": "uv_release_feed",
+      "title": "0.13.7",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.7",
+      "published": "2026-11-03T02:45:04Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "2855f37f4ba0715c",
+      "domain": "software_factory",
+      "feed_id": "uv_release_feed",
+      "title": "0.13.8",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.8",
+      "published": "2026-11-12T17:03:07Z",
+      "review": "unreviewed"
+    },
+    {
+      "id": "dcf762b32bf000c8",
+      "domain": "software_factory",
+      "feed_id": "uv_release_feed",
+      "title": "0.13.9",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.9",
+      "published": "2026-11-17T09:57:55Z",
       "review": "unreviewed"
     }
   ]
